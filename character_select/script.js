@@ -2,13 +2,10 @@ let playerState = 'roll'
 const dropdown = document.getElementById('animations')
 dropdown.addEventListener('change', function(e){
     playerState = e.target.value
-    console.log(e.target)
 })
-
 
 const canvas = document.getElementById('canvas1')
 const ctx = canvas.getContext('2d')
-// console.log(ctx)
 
 const CANVAS_WIDTH = canvas.width = 600
 const CANVAS_HEIGHT = canvas.height = 600
@@ -76,7 +73,6 @@ animationStates.forEach((state, index) => {
     }
     spriteAnimations[state.name] = frames;
 })
-console.log(spriteAnimations)
 
 function animate() {
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT) // to clean all canvas1 to blank
@@ -92,6 +88,6 @@ function animate() {
     0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
     gameFrame++
-    requestAnimationFrame(animate)
+    requestAnimationFrame(animate) // 用以優化動畫，增加動畫效能，這個指令是請求下一偵動畫，即遞歸
 }
 animate()
