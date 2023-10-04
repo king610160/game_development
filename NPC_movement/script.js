@@ -16,7 +16,7 @@ class Enemy {
         this.total = picT // 總共幾張圖片
 
         // 讓物件可上下左右移動
-        // this.xspeed = Math.random() * 4 - 2
+        this.xspeed = Math.random() * 4 + 2
         // this.yspeed = Math.random() * 4 - 2
 
         // 圖片實際長寬
@@ -31,11 +31,24 @@ class Enemy {
         this.x = Math.random() * (CANVAS_WIDTH - this.width)
         this.y = Math.random() * (CANVAS_HEIGHT - this.height)
         this.frame = Math.floor(Math.random() * this.total) // 物件產生在0-5的frame中
+
+        // sin wave移動初始設定 - enemy2
+        this.angle = Math.random() * 2
+        this.angleSpeed = Math.random() * 0.2
+        this.angleWave = Math.random() * 5
     }
     update() {
         // 任意位置區間內移動 - enemy1
-        this.x += Math.random() * 7 - 3.5
-        this.y += Math.random() * 5 - 2.5
+        // this.x += Math.random() * 7 - 3.5
+        // this.y += Math.random() * 5 - 2.5
+
+        // 讓物件向左移動，並重置位置 - enemy2
+        this.x -= this.xspeed
+        if (this.x + this.width < 0) this.x = CANVAS_WIDTH
+
+        // 使用sin wave進行移動 - enemy2
+        this.y += Math.sin(this.angle) * this.angleWave
+        this.angle += this.angleSpeed
 
         // 讓東西能夠反彈 - 自己想的
         // if (this.x + this.width > CANVAS_WIDTH) this.xspeed *= -1
@@ -56,7 +69,8 @@ class Enemy {
 }
 
 for (let i = 0; i < enemiesCount; i++) {
-    enemiesArr.push(new Enemy('enemy1.png',293,155,6))
+    // enemiesArr.push(new Enemy('enemy1.png',293,155,6)) // enemy1's info
+    enemiesArr.push(new Enemy('enemy2.png',266,188,6))  // enemy2's info
 }
 
 function animate() {
