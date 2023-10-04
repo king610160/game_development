@@ -4,7 +4,7 @@ const canvas = document.getElementById('canvas1')
 const ctx = canvas.getContext('2d')
 const CANVAS_WIDTH = canvas.width = 500
 const CANVAS_HEIGHT = canvas.height = 1000
-const enemiesCount = 200
+const enemiesCount = 20
 const enemiesArr = []
 let gameFrame = 0
 let speed = 6 // 用來調整偵刷新的速度
@@ -15,8 +15,8 @@ class Enemy {
         this.image.src = src
         this.total = picT // 總共幾張圖片
 
-        // 讓物件可上下左右移動
-        this.xspeed = Math.random() * 4 + 2
+        // 讓物件可上下左右移動 - enemy2
+        // this.xspeed = Math.random() * 4 + 2
         // this.yspeed = Math.random() * 4 - 2
 
         // 圖片實際長寬
@@ -38,9 +38,14 @@ class Enemy {
         // this.angleWave = Math.random() * 5  // 振幅
 
         // sin wave移動初始設定 - enemy3
-        this.angle = Math.random() * 500
-        this.angleSpeed = Math.random() * 2 + 0.5
-        this.angleWave = Math.random() * 200 + 50        
+        // this.angle = Math.random() * 500
+        // this.angleSpeed = Math.random() * 2 + 0.5
+        // this.angleWave = Math.random() * 200 + 50    
+        
+        // enemy4的隨機移動點
+        this.newX = Math.random() * (CANVAS_WIDTH - this.width)
+        this.newY = Math.random() * (CANVAS_HEIGHT - this.height)
+        this.interval = Math.floor(Math.random() * 200 + 50)
     }
     update() {
         // 任意位置區間內移動 - enemy1
@@ -57,9 +62,18 @@ class Enemy {
 
         // 使用sin wave進行左右移動(x), 加上cos就會圓圈移動 - enemy3
         // 要佔滿整個框，要用2/CANVAS_WIDTH/HEIGHT
-        this.x = CANVAS_WIDTH/2 * Math.sin(this.angle * Math.PI/180) + (CANVAS_WIDTH/2 - this.width/2)
-        this.y = CANVAS_HEIGHT/2 * Math.cos(this.angle * Math.PI/900) + (CANVAS_HEIGHT/2 - this.height/2)
-        this.angle += this.angleSpeed
+        // this.x = CANVAS_WIDTH/2 * Math.sin(this.angle * Math.PI/180) + (CANVAS_WIDTH/2 - this.width/2)
+        // this.y = CANVAS_HEIGHT/2 * Math.cos(this.angle * Math.PI/900) + (CANVAS_HEIGHT/2 - this.height/2)
+        // this.angle += this.angleSpeed
+
+        if (gameFrame % this.interval === 0) {
+            this.newX = Math.random() * (CANVAS_WIDTH - this.width)
+            this.newY = Math.random() * (CANVAS_HEIGHT - this.height)
+        }
+        let dx = this.x - this.newX
+        let dy = this.y - this.newY
+        this.x -= dx/20
+        this.y -= dy/20
 
         // 讓東西能夠反彈 - 自己想的
         // if (this.x + this.width > CANVAS_WIDTH) this.xspeed *= -1
@@ -82,7 +96,8 @@ class Enemy {
 for (let i = 0; i < enemiesCount; i++) {
     // enemiesArr.push(new Enemy('enemy1.png',293,155,6)) // enemy1's info
     // enemiesArr.push(new Enemy('enemy2.png',266,188,6))  // enemy2's info
-    enemiesArr.push(new Enemy('enemy3.png',218,177,6))
+    // enemiesArr.push(new Enemy('enemy3.png',218,177,6))  // enemy3's info
+    enemiesArr.push(new Enemy('enemy4.png',213,213,9))
 }
 
 function animate() {
