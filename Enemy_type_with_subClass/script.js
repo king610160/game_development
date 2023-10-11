@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.enemyTimer = 0
             } else this.enemyTimer += deltaTime
 
-            console.log(this.enemies)
             this.enemies.forEach(object => object.update(deltaTime))
         }
         draw(){ // 畫在指定的canvas上
@@ -118,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         update(deltaTime) {
             super.update(deltaTime)
-            if (this.y < 0 - this.height * 2) this.dead = true
+            if (this.y < 0 - this.height - 5) this.dead = true
             this.y += this.yspeed * deltaTime
             if (this.y > this.maxDepth) this.yspeed *= -1
         }
