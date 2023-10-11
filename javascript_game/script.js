@@ -121,6 +121,7 @@ class Particle {
     }
     draw() {
         ctx.save()
+        ctx.globalAlpha = Math.random() > 0.5 // will blinking
         ctx.beginPath()
         ctx.fillStyle = this.color
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2)
