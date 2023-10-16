@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* to let all browser same in origin point */
+    box-sizing: border-box;
+    font-family: 'Halvetica', cursive;
+}
+body {
+    overflow: hidden;
+}
+canvas {
+    top: 0;
+    left: 0;
+}
+img {
+    display: none;
+}
+#loading {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 80px;
+}
